@@ -19,7 +19,7 @@ buildscript {
     repositories {
         mavenCentral()
         google()
-        maven("https://repository.liferay.com/nexus/content/repositories/public")
+        maven("https://repository.liferay.com/nexus/content/repositories/liferay-public-releases")
     }
 
     dependencies {
