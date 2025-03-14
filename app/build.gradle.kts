@@ -21,7 +21,7 @@ plugins {
 
 val versionMajor = 5
 val versionMinor = 5
-val versionPatch = 2
+val versionPatch = 3
 
 android {
     namespace = "com.sbgapps.scoreit"
@@ -84,6 +84,12 @@ android {
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            (output as com.android.build.gradle.internal.api.BaseVariantOutputImpl).outputFileName.set("StoreIt-${variant.name}.apk")
+        }
     }
 }
 
