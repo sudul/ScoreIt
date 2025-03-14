@@ -45,7 +45,6 @@ dependencies {
     implementation(libs.moshi.kotlin)
     implementation(libs.moshi.adapters)
     implementation(libs.billingKtx)
-    implementation(libs.storage)
     implementation(libs.koinAndroidX)
     implementation(libs.timber)
 

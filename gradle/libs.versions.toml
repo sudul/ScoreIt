@@ -51,9 +51,6 @@ timber = "com.jakewharton.timber:timber:5.0.1"
 # Koin
 koinAndroidX = "io.insert-koin:koin-androidx-viewmodel:2.1.6"
 
-# Storage
-storage = "com.snatik:storage:2.1.0"
-
 # Moshi
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
 moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }
