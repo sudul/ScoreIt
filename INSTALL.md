@@ -12,7 +12,7 @@ After adding your first location, you will be asked if you want to be notified o
 ## Sources to get ScoreIt from
 
 **ScoreIt** releases are available from the following sources:
-- **[GitHub releases](https://github.com/breezy-weather/breezy-weather/releases)** is where releases built by GitHub are published under APK format. Any Android device can install APK files without needing any particular app.
+- **[GitHub releases](https://github.com/sudul/ScoreIt/releases)** is where releases built by GitHub are published under APK format. Any Android device can install APK files without needing any particular app.
 - **[Google Play Store](https://play.google.com/store/apps/details?id=com.sbgapps.scoreit&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)** maintained by the original developer. Play Store version doesn't seems to match version on GitHub.
 
 ## Client configuration instructions
