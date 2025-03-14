@@ -85,12 +85,6 @@ android {
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
     }
-
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            (output as com.android.build.gradle.internal.api.BaseVariantOutputImpl).outputFileName.set("StoreIt-${variant.name}.apk")
-        }
-    }
 }
 
 dependencies {

@@ -66,6 +66,10 @@ jobs:
           name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK release generated
           path: ${{ env.main_project_module }}/build/outputs/apk/release/
 
+      - name: Rename APK
+        run: mv ${{ env.main_project_module }}/build/outputs/apk/release/app-release-unsigned.apk ${{ env.main_project_module }}/build/outputs/apk/release/StoreIt-release.apk
+
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
