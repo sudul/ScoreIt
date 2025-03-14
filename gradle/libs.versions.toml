@@ -49,7 +49,7 @@ billingKtx = "com.android.billingclient:billing-ktx:6.0.1"
 timber = "com.jakewharton.timber:timber:5.0.1"
 
 # Koin
-koinAndroidX = "org.koin:koin-androidx-viewmodel:2.1.6"
+koinAndroidX = "io.insert-koin:koin-androidx-viewmodel:2.1.6"
 
 # Storage
 storage = "com.snatik:storage:2.1.0"
