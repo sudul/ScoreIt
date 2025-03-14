@@ -2,7 +2,7 @@ name: Generated APK (Upload - Create Artifact To Github Action)
 
 env:
   # The name of the main module repository
-  main_project_module: StoreIt
+  main_project_module: app
 
   # The name of the Play Store
   playstore_name: Store It
@@ -63,7 +63,7 @@ jobs:
       - name: Upload APK Release - ${{ env.repository_name }}
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK(s) release generated
+          name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK release generated
           path: ${{ env.main_project_module }}/build/outputs/apk/release/
 
       - name: Create Release
