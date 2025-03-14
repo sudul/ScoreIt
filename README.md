@@ -1,6 +1,8 @@
 ScoreIt
 =======================
 
+This is a fork of ScoreIt. The goal is to provide a release directly from github and add Obtainium button.
+
 An application to count points for games:
 - Universal counter
 - Tarot
@@ -10,12 +12,15 @@ An application to count points for games:
 ![screenshot](https://raw.github.com/StephaneBg/ScoreItProject/master/screenshot.png "screenshot")
 
 
-<a href='https://play.google.com/store/apps/details?id=com.sbgapps.scoreit&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+<a href="https://github.com/sudul/ScoreIt/blob/master/INSTALL.md#obtainium">
+<img src="https://github.com/ImranR98/Obtainium/blob/main/assets/graphics/badge_obtainium.png"
+alt="Get it on Obtainium" align="center" height="54" />
+</a>
 
 Credits
 -------
 
-Author: [Stéphane Baiget](https://github.com/StephaneBg)
+Original Author: [Stéphane Baiget](https://github.com/StephaneBg)
 
 
 License
