@@ -19,6 +19,7 @@ buildscript {
     repositories {
         mavenCentral()
         google()
+        maven("https://repository.liferay.com/nexus/content/repositories/public")
     }
 
     dependencies {
