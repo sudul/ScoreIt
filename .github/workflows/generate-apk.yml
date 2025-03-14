@@ -2,7 +2,7 @@ name: Generated APK (Upload - Create Artifact To Github Action)
 
 env:
   # The name of the main module repository
-  main_project_module: app
+  main_project_module: StoreIt
 
   # The name of the Play Store
   playstore_name: Store It
@@ -66,9 +66,24 @@ jobs:
           name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK(s) release generated
           path: ${{ env.main_project_module }}/build/outputs/apk/release/
 
-      # Noted For Output [main_project_module]/build/outputs/bundle/release/
-      #- name: Upload AAB (App Bundle) Release - ${{ env.repository_name }}
-      #  uses: actions/upload-artifact@v4
-      #  with:
-      #    name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - App bundle(s) AAB release generated
-      #    path: ${{ env.main_project_module }}/build/outputs/bundle/release/
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.run_number }}
+          release_name: Release ${{ github.run_number }}
+          draft: false
+          prerelease: false
+      
+      - name: Upload APK to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ env.main_project_module }}/build/outputs/apk/release/StoreIt-release.apk
+          asset_name: StoreIt-release.apk
+          asset_content_type: application/vnd.android.package-archive
+
