@@ -19,12 +19,6 @@ plugins {
     id("kotlin-android")
 }
 
-repositories {
-    google()
-    mavenCentral()
-}
-
-
 val versionMajor = 5
 val versionMinor = 5
 val versionPatch = 2
