@@ -45,6 +45,9 @@ jobs:
       #- name: Run gradle tests
       #  run: ./gradlew test
 
+      - name: Clean Gradle Cache
+        run: ./gradlew cleanBuildCache
+
       # Run Build Project
       - name: Build gradle project
         run: ./gradlew build
