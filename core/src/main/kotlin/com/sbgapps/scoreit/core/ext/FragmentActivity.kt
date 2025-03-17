@@ -20,6 +20,7 @@ import android.os.Build
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.commit
 
 fun FragmentActivity.addFragment(
@@ -65,9 +66,5 @@ fun FragmentActivity.replaceFragment(
 }
 
 fun FragmentActivity.setLightStatusBar() {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        var flags = window.decorView.systemUiVisibility
-        flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        window.decorView.systemUiVisibility = flags
-    }
+    WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
 }

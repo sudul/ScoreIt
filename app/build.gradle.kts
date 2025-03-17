@@ -85,6 +85,10 @@ android {
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
     }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_21.toString()
+    }
 }
 
 dependencies {

@@ -17,7 +17,7 @@
 plugins {
     id("com.android.library")
     id("kotlin-android")
-    id("com.google.devtools.ksp")
+    id("com.google.devtools.ksp") version "2.1.10-1.0.31"
 }
 
 android {

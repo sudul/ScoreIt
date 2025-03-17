@@ -16,5 +16,6 @@
 
 package com.sbgapps.scoreit.core.ext
 
-infix fun <T> Collection<T>.sameContentWith(collection: Collection<T>) =
-    collection.let { this.size == it.size && this.containsAll(it) }
+infix fun <T> Collection<T>.sameContentWith(collection: Collection<T>): Boolean {
+    return this.size == collection.size && this.containsAll(collection)
+}

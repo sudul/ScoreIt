@@ -29,28 +29,20 @@ buildscript {
 }
 
 plugins {
-    id("com.google.devtools.ksp") version "1.9.10-1.0.13" apply false
-}
-
-allprojects {
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = "1.8"
-        }
-    }
+    id("com.google.devtools.ksp") version "2.1.10-1.0.31" apply false
 }
 
 subprojects {
     afterEvaluate {
         extensions.configure<com.android.build.gradle.BaseExtension> {
             compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_1_8
-                targetCompatibility = JavaVersion.VERSION_1_8
+                sourceCompatibility = JavaVersion.VERSION_21
+                targetCompatibility = JavaVersion.VERSION_21
             }
         }
     }
 }
 
 tasks.create<Delete>("clean") {
-    delete(rootProject.buildDir)
+    delete(rootProject.layout.buildDirectory)
 }

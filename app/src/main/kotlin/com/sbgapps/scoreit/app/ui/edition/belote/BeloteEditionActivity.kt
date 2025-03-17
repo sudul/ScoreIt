@@ -17,6 +17,8 @@
 package com.sbgapps.scoreit.app.ui.edition.belote
 
 import android.annotation.SuppressLint
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -39,6 +41,7 @@ class BeloteEditionActivity : EditionActivity() {
 
     private val viewModel by viewModel<BeloteEditionViewModel>()
     private lateinit var binding: ActivityEditionBeloteBinding
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,9 +87,24 @@ class BeloteEditionActivity : EditionActivity() {
                     binding.bonusContainer.adapter = BonusAdapter(model)
                 }
 
-                is BeloteEditionState.Completed -> super.onBackPressed()
+                is BeloteEditionState.Completed -> {
+                    // Handle the completed state
+                    finish()
+                }
             }
         }
+
+        // Initialize the OnBackPressedCallback
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Handle the back button event
+                viewModel.cancelEdition()
+            }
+        }
+
+        // Add the callback to the dispatcher
+        this.onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+
         viewModel.loadContent()
     }
 
@@ -96,10 +114,6 @@ class BeloteEditionActivity : EditionActivity() {
             true
         }
         else -> super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() {
-        viewModel.cancelEdition()
     }
 
     private val scorerCheckedListener = MaterialButtonToggleGroup.OnButtonCheckedListener { _, checkedId, isChecked ->
