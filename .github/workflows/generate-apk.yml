@@ -10,7 +10,7 @@ env:
 on:
   push:
     branches:
-      - 'release/**'
+      - 'master'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -45,8 +45,21 @@ jobs:
       #- name: Run gradle tests
       #  run: ./gradlew test
 
+      - name: Decode Keystore
+        env:
+          ENCODED_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+          DECODED_KEYSTORE_PATH: ${{ secrets.RELEASE_KEYSTORE_PATH }}
+        run: |
+          echo $ENCODED_KEYSTORE > keystore_base64.txt
+          base64 -d keystore_base64.txt > $DECODED_KEYSTORE_PATH
+
       # Run Build Project
       - name: Build gradle project
+        env:
+          RELEASE_KEYSTORE_PATH: ${{ secrets.RELEASE_KEYSTORE_PATH }}
+          RELEASE_SIGNING_PASSWORD: ${{ secrets.RELEASE_SIGNING_PASSWORD }}
+          RELEASE_SIGNING_USERNAME: ${{ secrets.RELEASE_SIGNING_USERNAME }}
+          RELEASE_SIGNING_ALIAS: ${{ secrets.RELEASE_SIGNING_ALIAS }}
         run: ./gradlew build --refresh-dependencies
 
            # Extract Version from Build Script
@@ -64,7 +77,12 @@ jobs:
 
       # Create APK Release
       - name: Build apk release project (APK) - ${{ env.main_project_module }} module
-        run: ./gradlew assemble
+        env:
+          RELEASE_KEYSTORE_PATH: ${{ secrets.RELEASE_KEYSTORE_PATH }}
+          RELEASE_SIGNING_PASSWORD: ${{ secrets.RELEASE_SIGNING_PASSWORD }}
+          RELEASE_SIGNING_USERNAME: ${{ secrets.RELEASE_SIGNING_USERNAME }}
+          RELEASE_SIGNING_ALIAS: ${{ secrets.RELEASE_SIGNING_ALIAS }}
+        run: ./gradlew assembleRelease
 
       # Create Bundle AAB Release
       # Noted for main module build [main_project_module]:bundleRelease

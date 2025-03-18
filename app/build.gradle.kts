@@ -28,6 +28,15 @@ android {
 
     compileSdk = libs.versions.compileSdk.get().toInt()
 
+    signingConfigs {
+        create("release") {
+            storeFile = file(System.getenv("RELEASE_KEYSTORE_PATH"))
+            storePassword = System.getenv("RELEASE_SIGNING_PASSWORD")
+            keyAlias = System.getenv("RELEASE_SIGNING_ALIAS")
+            keyPassword = System.getenv("RELEASE_SIGNING_PASSWORD")
+        }
+    }
+
     defaultConfig {
         versionCode = versionMajor * 100 + versionMinor * 10 + versionPatch
         versionName = "$versionMajor.$versionMinor.$versionPatch"
@@ -45,6 +54,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            signingConfig = signingConfigs["release"]
         }
     }
 
