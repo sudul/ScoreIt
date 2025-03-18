@@ -49,6 +49,16 @@ jobs:
       - name: Build gradle project
         run: ./gradlew build --refresh-dependencies
 
+      # Extract Version from Build Script
+      - name: Extract version from build.gradle.kts
+        id: extract_version
+        run: |
+          echo "VERSION_MAJOR=$(grep 'versionMajor' app/build.gradle.kts | cut -d'=' -f2 | tr -d ' ' | head -1)" >> $GITHUB_ENV
+          echo "VERSION_MINOR=$(grep 'versionMinor' app/build.gradle.kts | cut -d'=' -f2 | tr -d ' ' | head -1)" >> $GITHUB_ENV
+          echo "VERSION_PATCH=$(grep 'versionPatch' app/build.gradle.kts | cut -d'=' -f2 | tr -d ' ' | head -1)" >> $GITHUB_ENV
+          echo "VERSION=${{ env.VERSION_MAJOR }}.${{ env.VERSION_MINOR }}.${{ env.VERSION_PATCH }}" >> $GITHUB_ENV
+
+
       # Create APK Release
       - name: Build apk release project (APK) - ${{ env.main_project_module }} module
         run: ./gradlew assemble
@@ -60,6 +70,7 @@ jobs:
 
       # Upload Artifact Build
       # Noted For Output [main_project_module]/build/outputs/apk/release/
+
       - name: Upload APK Release - ${{ env.repository_name }}
         uses: actions/upload-artifact@v4
         with:
@@ -69,15 +80,14 @@ jobs:
       - name: Rename APK
         run: mv ${{ env.main_project_module }}/build/outputs/apk/release/app-release-unsigned.apk ${{ env.main_project_module }}/build/outputs/apk/release/StoreIt-release.apk
 
-
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.run_number }}
-          release_name: Release ${{ github.run_number }}
+          tag_name: ${{ env.VERSION }}
+          release_name: Release ${{ env.VERSION }}
           draft: false
           prerelease: false
       
