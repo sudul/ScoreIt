@@ -52,14 +52,14 @@ jobs:
         run: |
           echo "$ENCODED_KEYSTORE" | base64 --decode > "$DECODED_KEYSTORE_PATH"
 
-      # Run Build Project
-      - name: Build gradle project
-        env:
-          RELEASE_KEYSTORE_PATH: ${{ secrets.RELEASE_KEYSTORE_PATH }}
-          RELEASE_SIGNING_PASSWORD: ${{ secrets.RELEASE_SIGNING_PASSWORD }}
-          RELEASE_SIGNING_USERNAME: ${{ secrets.RELEASE_SIGNING_USERNAME }}
-          RELEASE_SIGNING_ALIAS: ${{ secrets.RELEASE_SIGNING_ALIAS }}
-        run: ./gradlew build --refresh-dependencies
+      ## Run Build Project
+      #- name: Build gradle project
+      #  env:
+      #    RELEASE_KEYSTORE_PATH: ${{ secrets.RELEASE_KEYSTORE_PATH }}
+      #    RELEASE_SIGNING_PASSWORD: ${{ secrets.RELEASE_SIGNING_PASSWORD }}
+      #    RELEASE_SIGNING_USERNAME: ${{ secrets.RELEASE_SIGNING_USERNAME }}
+      #    RELEASE_SIGNING_ALIAS: ${{ secrets.RELEASE_SIGNING_ALIAS }}
+      #  run: ./gradlew build --refresh-dependencies
 
            # Extract Version from Build Script
       - name: Extract version from build.gradle.kts
