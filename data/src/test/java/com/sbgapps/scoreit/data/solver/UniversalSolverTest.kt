@@ -17,7 +17,7 @@
 package com.sbgapps.scoreit.data.solver
 
 import com.sbgapps.scoreit.data.model.UniversalLap
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class UniversalSolverTest {

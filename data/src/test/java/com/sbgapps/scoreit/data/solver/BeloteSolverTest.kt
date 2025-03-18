@@ -31,11 +31,51 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 
+
 class BeloteSolverTest {
 
+//    private val mockCacheRepo = mockk<CacheRepo>()
+//    private val mockPrefsRepo = mockk<PreferencesRepo>()
+//    private val mockPlayer = mockk<Player>()
+//    private val mockDataStore = mockk<DataStore>()
+
+//
+//    @Before
+//    fun setUp() {
+//        // Initialisez les comportements des mocks
+//        every { mockDataStore.isBeloteScoreRounded() } returns true
+//        every { mockDataStore.totalPlayer } returns mockPlayer
+//    }
+
+//    @MockK
+//    private lateinit var mockCacheRepo: CacheRepo
+//
+//    @MockK
+//    private lateinit var mockPrefsRepo: PreferencesRepo
+//
+//    @MockK
+//    private lateinit var mockPlayer: Player
+//
+//    private lateinit var mockDataStore: DataStore
+//    private lateinit var solver: BeloteSolver
+//
+//    @Before
+//    fun setUp() {
+//        MockKAnnotations.init(this)
+//
+//        // Initialize DataStore with mocked dependencies
+//        mockDataStore = DataStore(mockCacheRepo, mockPrefsRepo, mockPlayer)
+//        solver = BeloteSolver(mockDataStore)
+//
+//        // Set up mock behavior
+//        every { mockDataStore.isBeloteScoreRounded() } returns true
+//        every { mockPrefsRepo.isRounded(any()) } returns false // Mock the behavior of isRounded
+//    }
+
     private val mockDataStore = mockk<DataStore> {
-        every { isBeloteScoreRounded() } returns true
+                every { isBeloteScoreRounded() } returns true
     }
+
     private val solver: BeloteSolver = BeloteSolver(mockDataStore)
 
     @Test
