@@ -21,6 +21,8 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
 import androidx.core.view.isVisible
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
@@ -48,6 +50,12 @@ class CoincheEditionActivity : EditionActivity() {
         binding = ActivityEditionCoincheBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupActionBar(binding.toolbar)
+
+        this.onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                viewModel.cancelEdition()
+            }
+        })
 
         viewModel.observeStates(this) { state ->
             when (state) {
@@ -99,7 +107,10 @@ class CoincheEditionActivity : EditionActivity() {
                     binding.bonusContainer.adapter = BonusAdapter(model)
                 }
 
-                is CoincheEditionState.Completed -> super.onBackPressed()
+                is CoincheEditionState.Completed -> {
+                    // Utilisez le dispatcher pour gérer le retour
+                    this.onBackPressedDispatcher.onBackPressed()
+                }
             }
         }
         viewModel.loadContent()
@@ -111,10 +122,6 @@ class CoincheEditionActivity : EditionActivity() {
             true
         }
         else -> super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() {
-        viewModel.cancelEdition()
     }
 
     private val scorerCheckedListener = MaterialButtonToggleGroup.OnButtonCheckedListener { _, checkedId, isChecked ->

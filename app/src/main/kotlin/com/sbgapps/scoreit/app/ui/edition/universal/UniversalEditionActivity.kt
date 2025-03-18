@@ -18,9 +18,12 @@ package com.sbgapps.scoreit.app.ui.edition.universal
 
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
 import androidx.recyclerview.widget.DiffUtil
 import com.sbgapps.scoreit.R
 import com.sbgapps.scoreit.app.ui.edition.EditionActivity
+import com.sbgapps.scoreit.app.ui.edition.coinche.CoincheEditionState
 import com.sbgapps.scoreit.core.ext.asListOfType
 import com.sbgapps.scoreit.core.widget.DividerItemDecoration
 import com.sbgapps.scoreit.core.widget.GenericRecyclerViewAdapter
@@ -46,6 +49,12 @@ class UniversalEditionActivity : EditionActivity() {
             addItemDecoration(DividerItemDecoration(this@UniversalEditionActivity))
         }
 
+        this.onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                viewModel.cancelEdition()
+            }
+        })
+
         viewModel.observeStates(this) { state ->
             when (state) {
                 is UniversalEditionState.Content -> {
@@ -66,14 +75,13 @@ class UniversalEditionActivity : EditionActivity() {
                     lapAdapter.updateItems(adapters, diff)
                 }
 
-                is UniversalEditionState.Completed -> super.onBackPressed()
+                is UniversalEditionState.Completed -> {
+                    // Utilisez le dispatcher pour gérer le retour
+                    this.onBackPressedDispatcher.onBackPressed()
+                }
             }
         }
         viewModel.loadContent()
-    }
-
-    override fun onBackPressed() {
-        viewModel.cancelEdition()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {

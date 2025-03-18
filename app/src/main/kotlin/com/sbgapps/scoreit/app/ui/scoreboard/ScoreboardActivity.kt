@@ -19,6 +19,8 @@ package com.sbgapps.scoreit.app.ui.scoreboard
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -46,7 +48,20 @@ class ScoreboardActivity : BaseActivity() {
         binding = ActivityScoreboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.back.setOnClickListener { onBackPressed() }
+        // Utilisez OnBackPressedDispatcher pour gérer les événements de retour
+        this.onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Gérez le retour ici si nécessaire, sinon laissez vide pour le comportement par défaut
+                isEnabled = false
+                this@ScoreboardActivity.onBackPressedDispatcher.onBackPressed()
+            }
+        })
+
+        binding.back.setOnClickListener {
+            // Utilisez le dispatcher pour gérer le retour
+            this.onBackPressedDispatcher.onBackPressed()
+        }
+
         bindButton(binding.minusScoreOne, -1, PlayerPosition.ONE)
         bindButton(binding.plusScoreOne, +1, PlayerPosition.ONE)
         bindButton(binding.minusScoreTwo, -1, PlayerPosition.TWO)

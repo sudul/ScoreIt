@@ -16,11 +16,16 @@
 
 package com.sbgapps.scoreit.core.ui
 
+import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 
 open class BaseActivity : AppCompatActivity() {
+
+    private lateinit var onBackPressedCallback: androidx.activity.OnBackPressedCallback
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         android.R.id.home -> {
@@ -38,6 +43,21 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     open fun onUpPressed() {
-        onBackPressed()
+        onBackPressedCallback.handleOnBackPressed()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Initialisez le OnBackPressedCallback
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Gérez l'événement de retour ici
+                finish() // ou toute autre action que vous souhaitez effectuer
+            }
+        }
+
+        // Ajoutez le callback au dispatcher
+        this.onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 }

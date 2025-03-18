@@ -22,11 +22,14 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sbgapps.scoreit.R
 import com.sbgapps.scoreit.app.ui.edition.EditionActivity
+import com.sbgapps.scoreit.app.ui.edition.coinche.CoincheEditionState
 import com.sbgapps.scoreit.app.ui.widget.AdaptableLinearLayoutAdapter
 import com.sbgapps.scoreit.data.model.PlayerPosition
 import com.sbgapps.scoreit.data.model.TarotBidValue
@@ -47,6 +50,12 @@ class TarotEditionActivity : EditionActivity() {
         binding = ActivityEditionTarotBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupActionBar(binding.toolbar)
+
+        this.onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                viewModel.cancelEdition()
+            }
+        })
 
         viewModel.observeStates(this) { state ->
             when (state) {
@@ -120,7 +129,10 @@ class TarotEditionActivity : EditionActivity() {
                     binding.bonusContainer.adapter = BonusAdapter(model)
                 }
 
-                TarotEditionState.Completed -> super.onBackPressed()
+                is TarotEditionState.Completed -> {
+                    // Utilisez le dispatcher pour gérer le retour
+                    this.onBackPressedDispatcher.onBackPressed()
+                }
             }
         }
         viewModel.loadContent()
@@ -132,10 +144,6 @@ class TarotEditionActivity : EditionActivity() {
             true
         }
         else -> super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() {
-        viewModel.cancelEdition()
     }
 
     private val buttonCheckedListener = MaterialButtonToggleGroup.OnButtonCheckedListener { view, _, _ ->
