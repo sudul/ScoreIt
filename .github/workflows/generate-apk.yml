@@ -49,15 +49,18 @@ jobs:
       - name: Build gradle project
         run: ./gradlew build --refresh-dependencies
 
-      # Extract Version from Build Script
+           # Extract Version from Build Script
       - name: Extract version from build.gradle.kts
         id: extract_version
         run: |
-          echo "VERSION_MAJOR=$(grep 'versionMajor' app/build.gradle.kts | cut -d'=' -f2 | tr -d ' ' | head -1)" >> $GITHUB_ENV
-          echo "VERSION_MINOR=$(grep 'versionMinor' app/build.gradle.kts | cut -d'=' -f2 | tr -d ' ' | head -1)" >> $GITHUB_ENV
-          echo "VERSION_PATCH=$(grep 'versionPatch' app/build.gradle.kts | cut -d'=' -f2 | tr -d ' ' | head -1)" >> $GITHUB_ENV
-          echo "VERSION=${{ env.VERSION_MAJOR }}.${{ env.VERSION_MINOR }}.${{ env.VERSION_PATCH }}" >> $GITHUB_ENV
-
+          VERSION_MAJOR=$(grep 'val versionMajor' app/build.gradle.kts | head -1 | cut -d'=' -f2 | tr -d ' ' | tr -d '\n')
+          VERSION_MINOR=$(grep 'val versionMinor' app/build.gradle.kts | head -1 | cut -d'=' -f2 | tr -d ' ' | tr -d '\n')
+          VERSION_PATCH=$(grep 'val versionPatch' app/build.gradle.kts | head -1 | cut -d'=' -f2 | tr -d ' ' | tr -d '\n')
+          echo "VERSION_MAJOR=$VERSION_MAJOR" >> $GITHUB_ENV
+          echo "VERSION_MINOR=$VERSION_MINOR" >> $GITHUB_ENV
+          echo "VERSION_PATCH=$VERSION_PATCH" >> $GITHUB_ENV
+          echo "VERSION=$VERSION_MAJOR.$VERSION_MINOR.$VERSION_PATCH" >> $GITHUB_ENV
+          echo "Extracted Version: $VERSION_MAJOR.$VERSION_MINOR.$VERSION_PATCH"
 
       # Create APK Release
       - name: Build apk release project (APK) - ${{ env.main_project_module }} module
