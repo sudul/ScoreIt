@@ -82,7 +82,7 @@ jobs:
           RELEASE_KEYSTORE_PATH: ${{ env.RELEASE_KEYSTORE_PATH }}
           RELEASE_SIGNING_PASSWORD: "${{ secrets.RELEASE_SIGNING_PASSWORD }}"
           RELEASE_SIGNING_USERNAME: ${{ secrets.RELEASE_SIGNING_USERNAME }}
-          RELEASE_SIGNING_ALIAS: ${{ secrets.RELEASE_SIGNING_ALIAS }}
+          RELEASE_SIGNING_ALIAS: ${{ secrets.RELEASE_KEYSTORE_ALIAS }}
         run: ./gradlew assembleRelease
 
       # Create Bundle AAB Release
