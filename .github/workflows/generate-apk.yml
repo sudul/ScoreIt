@@ -80,7 +80,7 @@ jobs:
       - name: Build apk release project (APK) - ${{ env.main_project_module }} module
         env:
           RELEASE_KEYSTORE_PATH: ${{ env.RELEASE_KEYSTORE_PATH }}
-          RELEASE_SIGNING_PASSWORD: ${{ secrets.RELEASE_SIGNING_PASSWORD }}
+          RELEASE_SIGNING_PASSWORD: "${{ secrets.RELEASE_SIGNING_PASSWORD }}"
           RELEASE_SIGNING_USERNAME: ${{ secrets.RELEASE_SIGNING_USERNAME }}
           RELEASE_SIGNING_ALIAS: ${{ secrets.RELEASE_SIGNING_ALIAS }}
         run: ./gradlew assembleRelease
