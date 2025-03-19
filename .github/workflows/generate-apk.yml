@@ -100,7 +100,7 @@ jobs:
           path: ${{ env.main_project_module }}/build/outputs/apk/release/
 
       - name: Rename APK
-        run: mv ${{ env.main_project_module }}/build/outputs/apk/release/app-release-unsigned.apk ${{ env.main_project_module }}/build/outputs/apk/release/StoreIt-release.apk
+        run: mv ${{ env.main_project_module }}/build/outputs/apk/release/app-release-signed.apk ${{ env.main_project_module }}/build/outputs/apk/release/StoreIt-release.apk
 
       - name: Create Release
         id: create_release
